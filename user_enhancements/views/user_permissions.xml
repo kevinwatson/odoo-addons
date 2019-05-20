@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="user_permissions_tree" model="ir.ui.view">
+        <field name="name">User Permissions Tree</field>
+        <field name="model">user.permission</field>
+        <field name="arch" type="xml">
+            <tree string="User Permissions" create="false" edit="false" delete="false">
+                <field name="login"/>
+                <field name="group"/>
+                <field name="model"/>
+                <field name="perm_read"/>
+                <field name="perm_create"/>
+                <field name="perm_write"/>
+                <field name="perm_unlink"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="search_user_permissions" model="ir.ui.view">
+        <field name="name">user.permissions.search</field>
+        <field name="model">user.permission</field>
+        <field name="arch" type="xml">
+            <search string="User Permissions Search">
+                <field name="login"/>
+                <field name="group"/>
+                <field name="model"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_user_permissions" model="ir.actions.act_window">
+        <field name="name">User Permissions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">user.permission</field>
+        <field name="search_view_id" ref="search_user_permissions"/>
+        <field name="view_id" ref="user_permissions_tree"/>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <div class="oe_user_permissions_nocontent">
+                <p>
+                    No user permissions were found.
+                </p>
+            </div>
+        </field>
+    </record>
+
+    <!-- Menu Settings / Users & Companies -->
+    <menuitem id="menu_user_permissions"
+              parent="base.menu_users"
+              sequence="3"
+              action="action_user_permissions"
+              groups="base.group_user"/>
+</odoo>
